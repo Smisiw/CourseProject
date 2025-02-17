@@ -1,0 +1,37 @@
+﻿@page
+@model CourseProject.Pages.Admin.Brands.IndexModel
+@{
+}
+
+
+<a asp-page="/Admin/Index">Назад</a>
+<div>
+    <a asp-page="/Admin/Brands/Add">Добавить Бренд</a>
+</div>
+@if (Model.Brands != null)
+{
+    <table class="table table-bordered align-middle text-center">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var brand in Model.Brands)
+            {
+                <tr>
+                    <th>@brand.Name</th>
+                    <th>
+                        <div>
+                                <a class="btn btn-primary" asp-page="/Admin/Brands/Edit" asp-route-id="@brand.BrandId">Изменить</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-brandId="@brand.BrandId">
+                                <button class="btn btn-primary" type="submit">Удалить</button>
+                            </form>
+                        </div>
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

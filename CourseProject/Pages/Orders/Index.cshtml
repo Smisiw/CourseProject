@@ -1,0 +1,64 @@
+﻿@page
+@using CourseProject.Data.DTO.CellPhone
+@using CourseProject.Data.DTO.SmartPhone
+@model CourseProject.Pages.Orders.IndexModel
+@{
+}
+
+
+@if (Model.Orders.Any())
+{
+    foreach (var order in Model.Orders)
+    {
+        <p>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#o_@order.OrderId" role="button" aria-expanded="false" aria-controls="o_@order.OrderId">@order.CreatedDate</a>
+        </p>
+        <div class="collapse" id="o_@order.OrderId">
+            <div class="card card-body">
+                @if (order.OrderItems.Any())
+                {
+                    <table class="table table-bordered align-middle text-center">
+                        <thead>
+                            <tr>
+                                <th>Фото</th>
+                                <th>Название</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var orderItem in order.OrderItems)
+                            {
+                                <tr>
+                                    <th style="width: 10rem;">
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(orderItem.Phone.ImageByte ?? Array.Empty<byte>())"
+                                             class="img-fluid rounded-start rounded">
+                                    </th>
+                                    @if (orderItem.Phone is SmartPhoneDTO)
+                                    {
+                                        SmartPhoneDTO smartPhone = (SmartPhoneDTO)orderItem.Phone;
+                                        <th><a asp-page="/SmartPhones/Phone" asp-route-id="@smartPhone.PhoneId">@smartPhone.Name @smartPhone.Color @smartPhone.Memory ГБ</a></th>
+                                    }
+                                    else
+                                    {
+                                        CellPhoneDTO cellPhone = (CellPhoneDTO)orderItem.Phone;
+                                        <th><a asp-page="/CellPhones/Phone" asp-route-id="@cellPhone.PhoneId">@cellPhone.Name @cellPhone.Color</a></th>
+                                    }
+                                    <th>@orderItem.Price Р</th>
+                                    <th>
+                                        @orderItem.Count
+                                    </th>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    <div>
+                        <h3>Итого: @order.TotalPrice Р</h3>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    
+}

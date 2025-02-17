@@ -1,0 +1,70 @@
+﻿@page
+@using CourseProject.Data.DTO.CellPhone
+@using CourseProject.Data.DTO.SmartPhone
+@model CourseProject.Pages.Cart.IndexModel
+@{
+}
+
+@if (!Model.CartItems.Any())
+{
+    <div>
+        <p>Товары отсутствуют</p>
+    </div>
+}
+@if (Model.CartItems.Any())
+{
+    <table class="table table-bordered align-middle text-center">
+    <thead>
+        <tr>
+            <th>Фото</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var cartItem in Model.CartItems)
+            {
+                <tr>
+                    <th style="width: 10rem;">
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(cartItem.Phone.ImageByte ?? Array.Empty<byte>())"
+                             class="img-fluid rounded-start rounded">
+                    </th>
+                    @if (cartItem.Phone is SmartPhoneDTO)
+                    {
+                        SmartPhoneDTO smartPhone = (SmartPhoneDTO)cartItem.Phone;
+                        <th><a asp-page="/SmartPhones/Phone" asp-route-id="@smartPhone.PhoneId">@smartPhone.Name @smartPhone.Color @smartPhone.Memory ГБ</a></th>
+                    }
+                    else
+                    {
+                        CellPhoneDTO cellPhone = (CellPhoneDTO)cartItem.Phone;
+                        <th><a asp-page="/CellPhones/Phone" asp-route-id="@cellPhone.PhoneId">@cellPhone.Name @cellPhone.Color</a></th>
+                    }
+                    <th>@cartItem.Price Р</th>
+                    <th>
+                        <div>
+                            
+                            <form method="post" asp-page-handler="Minus" asp-route-phoneId="@cartItem.PhoneId">
+                                <button class="btn btn-primary" type="submit">-</button>
+                            </form>
+                            <p>@cartItem.Count</p>
+                            <form method="post" asp-page-handler="Plus" asp-route-phoneId="@cartItem.PhoneId">
+                                <button class="btn btn-primary" type="submit">+</button>
+                            </form>
+                            <form method="post" asp-page-handler="Delete" asp-route-phoneId="@cartItem.PhoneId">
+                                <button class="btn btn-primary" type="submit">Удалить</button>
+                            </form>
+                        </div>
+                    </th>
+                </tr>
+            }
+    </tbody>
+
+</table>
+<div>
+    <h3>Итого: @Model.TotalPrice Р</h3>
+        <form method="post" asp-page-handler="Confirm">
+            <button class="btn btn-primary" type="submit">Оформить</button>
+        </form>
+</div>
+}

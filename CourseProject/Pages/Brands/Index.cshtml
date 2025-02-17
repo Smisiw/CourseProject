@@ -1,0 +1,26 @@
+﻿@page
+@model CourseProject.Pages.Brands.IndexModel
+@{
+}
+
+@if (Model.Brands == null)
+{
+    <div>
+        <p>Бренды отсутствуют</p>
+    </div>
+}
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    @if (Model.Brands != null)
+    {
+        @foreach (var brand in Model.Brands)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title text-center"><a asp-page="/Brands/Brand" asp-route-id="@brand.BrandId">@brand.Name</a></h2>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

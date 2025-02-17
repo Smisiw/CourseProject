@@ -1,0 +1,21 @@
+﻿@page "/Admin/Brands/{id:int}"
+@model CourseProject.Pages.Admin.Brands.EditModel
+@{
+}
+<div>
+    <a asp-page="/Admin/Brands/Index">Назад</a>
+    <form enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div>
+            <span asp-validation-for="Brand.BrandId" class="text-danger" hidden></span>
+            <label asp-for="Brand.BrandId" hidden>Название</label>
+            <input type="text" id="" asp-for="Brand.BrandId" hidden class="form-control" required />
+        </div>
+        <div>
+            <span asp-validation-for="Brand.Name" class="text-danger"></span>
+            <label asp-for="Brand.Name">Название</label>
+            <input type="text" id="" asp-for="Brand.Name" class="form-control" required />
+        </div>
+        <button class="btn btn-primary" type="submit">Изменить бренд</button>
+    </form>
+</div>

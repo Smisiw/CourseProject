@@ -1,0 +1,32 @@
+﻿@page
+@model CourseProject.Pages.Registration.IndexModel
+@{
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center" id="h2Enter">Регистрация</h2>
+            <form class="mt-4" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <span asp-validation-for="model.Login" class="text-danger"></span>
+                    <label asp-for="model.Login">Логин</label>
+                    <input type="text" id="Login" asp-for="model.Login" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="model.Password" class="text-danger"></span>
+                    <label asp-for="model.Password">Пароль</label>
+                    <input type="password" id="Password" asp-for="model.Password" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="model.PasswordConfirm" class="text-danger"></span>
+                    <label asp-for="model.PasswordConfirm">Повтор пароля</label>
+                    <input type="password" id="PasswordConfirm" asp-for="model.PasswordConfirm" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                <a class="text-center mt-2" asp-page="/Login/Index" id="switch-to-register">Войти</a>
+            </form>
+        </div>
+    </div>
+</div>

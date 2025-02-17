@@ -1,0 +1,122 @@
+﻿@page "/Admin/SmartPhones/{id:int}"
+@model CourseProject.Pages.Admin.SmartPhones.EditModel
+@{
+}
+
+    <a asp-page="/Admin/SmartPhones/Index">Назад</a>
+    <form enctype="multipart/form-data" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row row-cols-2">
+        <div class="col">
+            <div>
+                <span hidden asp-validation-for="SmartPhone.PhoneId" class="text-danger"></span>
+                <label hidden asp-for="SmartPhone.PhoneId">PhoneId</label>
+                <input hidden type="text" id="" asp-for="SmartPhone.PhoneId" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Name" class="text-danger"></span>
+                <label asp-for="SmartPhone.Name">Название</label>
+                <input type="text" id="" asp-for="SmartPhone.Name" class="form-control" required />
+            </div>
+            <div>
+                <label asp-for="SmartPhone.BrandId">Бренд</label>
+                <select id="" asp-for="SmartPhone.BrandId" class="form-control" required>
+                    @if (Model.Brands != null)
+                    {
+                        @foreach (var brand in Model.Brands)
+                        {
+                            <option value="@brand.BrandId">@brand.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Color" class="text-danger"></span>
+                <label asp-for="SmartPhone.Color">Цвет</label>
+                <input type="text" id="" asp-for="SmartPhone.Color" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Memory" class="text-danger"></span>
+                <label asp-for="SmartPhone.Memory">Внутренняя память ГБ</label>
+                <input type="text" id="" asp-for="SmartPhone.Memory" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Ram" class="text-danger"></span>
+                <label asp-for="SmartPhone.Ram">Оперативная память ГБ</label>
+                <input type="text" id="" asp-for="SmartPhone.Ram" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Capacity" class="text-danger"></span>
+                <label asp-for="SmartPhone.Capacity">Емкость аккумулятора мА*ч</label>
+                <input type="text" id="" asp-for="SmartPhone.Capacity" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.OS" class="text-danger"></span>
+                <label asp-for="SmartPhone.OS">Операционная система</label>
+                <input type="text" id="" asp-for="SmartPhone.OS" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.OSVersion" class="text-danger"></span>
+                <label asp-for="SmartPhone.OSVersion">Версия операционной системы</label>
+                <input type="text" id="" asp-for="SmartPhone.OSVersion" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.CoreNumber" class="text-danger"></span>
+                <label asp-for="SmartPhone.CoreNumber">Количество ядер процессора</label>
+                <input type="text" id="" asp-for="SmartPhone.CoreNumber" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Frequency" class="text-danger"></span>
+                <label asp-for="SmartPhone.Frequency">Частота процессора ГГЦ</label>
+                <input type="text" id="" asp-for="SmartPhone.Frequency" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Camera" class="text-danger"></span>
+                <label asp-for="SmartPhone.Camera">Разрешение камеры Мп</label>
+                <input type="text" id="" asp-for="SmartPhone.Camera" class="form-control" required />
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <span asp-validation-for="SmartPhone.Weigth" class="text-danger"></span>
+                <label asp-for="SmartPhone.Weigth">Вес г</label>
+                <input type="text" id="" asp-for="SmartPhone.Weigth" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Height" class="text-danger"></span>
+                <label asp-for="SmartPhone.Height">Длина мм</label>
+                <input type="text" id="" asp-for="SmartPhone.Height" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Width" class="text-danger"></span>
+                <label asp-for="SmartPhone.Width">Ширина мм</label>
+                <input type="text" id="" asp-for="SmartPhone.Width" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Thickness" class="text-danger"></span>
+                <label asp-for="SmartPhone.Thickness">Толщина мм</label>
+                <input type="text" id="" asp-for="SmartPhone.Thickness" class="form-control" required />
+            </div>
+            <div>
+                <label>Изображение</label>
+                <input type="file" id="" class="form-control" accept="image/*" name="file" />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Description" class="text-danger"></span>
+                <label asp-for="SmartPhone.Description">Описание</label>
+                <textarea rows="8" type="text" id="" asp-for="SmartPhone.Description" class="form-control" required ></textarea>
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Price" class="text-danger"></span>
+                <label asp-for="SmartPhone.Price">Цена р</label>
+                <input type="text" id="" asp-for="SmartPhone.Price" class="form-control" required />
+            </div>
+            <div>
+                <span asp-validation-for="SmartPhone.Count" class="text-danger"></span>
+                <label asp-for="SmartPhone.Count">Количество</label>
+                <input type="text" id="" asp-for="SmartPhone.Count" class="form-control" required />
+            </div>
+            <button class="btn btn-primary" type="submit">Сохранить</button>
+        </div>
+    </div>
+    </form>

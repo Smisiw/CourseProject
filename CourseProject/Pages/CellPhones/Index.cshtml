@@ -1,0 +1,45 @@
+﻿@page 
+@model CourseProject.Pages.CellPhones.IndexModel
+@{
+}
+
+
+@if (Model.CellPhones == null)
+{
+    <div>
+        <p>Товары отсутствуют</p>
+    </div>
+}
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    @if (Model.CellPhones != null)
+    {
+        @foreach (var smartPhone in Model.CellPhones)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(smartPhone.ImageByte ?? Array.Empty<byte>())" class="card-img-top" style="width: 18rem;" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@smartPhone.Name</h5>
+                        <p class="card-text">Бренд - <a asp-page="/Brands/Brand" asp-route-id="@smartPhone.BrandId">@Model.Brands.FirstOrDefault(x => x.BrandId == smartPhone.BrandId)?.Name</a></p>
+                        <p class="card-text">Цвет - @smartPhone.Color</p>
+                        <p class="card-text">Корпус - @smartPhone.CaseType</p>
+                        <p class="card-text">Цена - @smartPhone.Price Р</p>
+                        <a asp-page="/CellPhones/Phone" asp-route-id="@smartPhone.PhoneId" class="btn btn-primary">Подробнее</a>
+                        @if (smartPhone.Count > 0)
+                        {
+                            <form class="d-inline-block" method="post" asp-page-handler="Cart" asp-route-id="@smartPhone.PhoneId">
+                                <button class="btn btn-primary" type="submit">В корзину</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form class="d-inline-block" method="post" asp-page-handler="Cart" asp-route-id="@smartPhone.PhoneId">
+                                <button class="btn btn-primary disabled" type="submit">Нет в наличии</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

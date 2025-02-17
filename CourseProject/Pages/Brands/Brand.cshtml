@@ -1,0 +1,83 @@
+﻿@page "/Brands/{id:int}"
+@using CourseProject.Data.DTO.CellPhone
+@using CourseProject.Data.DTO.SmartPhone
+@model CourseProject.Pages.Brands.BrandModel
+@{
+}
+
+<div>
+    <h2>@Model.Brand.Name</h2>
+
+</div>
+@if (Model.Phones == null)
+{
+    <div>
+        <p>Товары отсутствуют</p>
+    </div>
+}
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    @if (Model.Phones != null)
+    {
+        @foreach (var phone in Model.Phones)
+        {
+            @if (phone is SmartPhoneDTO)
+            {
+                SmartPhoneDTO smartPhone = (SmartPhoneDTO)phone;
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(smartPhone.ImageByte ?? Array.Empty<byte>())" class="card-img-top" style="width: 18rem;" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@smartPhone.Name</h5>
+                            <p class="card-text">Бренд - <a asp-page="/Brands/Brand" asp-route-id="@smartPhone.BrandId">@Model.Brand.Name</a></p>
+                            <p class="card-text">Цвет - @smartPhone.Color</p>
+                            <p class="card-text">Память - @smartPhone.Memory</p>
+                            <p class="card-text">Цена - @smartPhone.Price Р</p>
+                            <a asp-page="/SmartPhones/Phone" asp-route-id="@smartPhone.PhoneId" class="btn btn-primary">Подробнее</a>
+                            @if (smartPhone.Count > 0)
+                            {
+                                <form class="d-inline-block" method="post" asp-page-handler="Cart" asp-route-id="@smartPhone.PhoneId">
+                                    <button class="btn btn-primary" type="submit">В корзину</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form class="d-inline-block" method="post" asp-page-handler="Cart" asp-route-id="@smartPhone.PhoneId">
+                                    <button class="btn btn-primary disabled" type="submit">Нет в наличии</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                CellPhoneDTO cellPhone = (CellPhoneDTO)phone;
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(cellPhone.ImageByte ?? Array.Empty<byte>())" class="card-img-top" style="width: 18rem;" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@cellPhone.Name</h5>
+                            <p class="card-text">Бренд - <a asp-page="/Brands/Brand" asp-route-id="@cellPhone.BrandId">@Model.Brand.Name</a></p>
+                            <p class="card-text">Цвет - @cellPhone.Color</p>
+                            <p class="card-text">Корпус - @cellPhone.CaseType</p>
+                            <p class="card-text">Цена - @cellPhone.Price Р</p>
+                            <a asp-page="/CellPhones/Phone" asp-route-id="@cellPhone.PhoneId" class="btn btn-primary">Подробнее</a>
+                            @if (cellPhone.Count > 0)
+                            {
+                                <form class="d-inline-block" method="post" asp-page-handler="Cart" asp-route-id="@cellPhone.PhoneId">
+                                    <button class="btn btn-primary" type="submit">В корзину</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form class="d-inline-block" method="post" asp-page-handler="Cart" asp-route-id="@cellPhone.PhoneId">
+                                    <button class="btn btn-primary disabled" type="submit">Нет в наличии</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>

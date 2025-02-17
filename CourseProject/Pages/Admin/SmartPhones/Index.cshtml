@@ -1,0 +1,48 @@
+﻿@page
+@model CourseProject.Pages.Admin.SmartPhones.IndexModel
+@{
+}
+
+<div>
+    <a asp-page="/Admin/Index">Назад</a>
+    <div>
+        <a asp-page="/Admin/SmartPhones/Add">Добавить Смартфон</a>
+    </div>
+    <table class="table table-bordered align-middle text-center">
+        <thead>
+            <tr>
+                <th>Фото</th>
+                <th>Название</th>
+                <th>Память</th>
+                <th>Цвет</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model.smartPhones != null)
+        {
+            @foreach (var smartPhone in Model.smartPhones)
+            {
+                <tr>
+                    <th style="width: 10rem;">
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(smartPhone.ImageByte ?? Array.Empty<byte>())"
+                             class="img-fluid rounded-start rounded">
+                    </th>
+                    <th>@smartPhone.Name</th>
+                    <th>@smartPhone.Memory</th>
+                    <th>@smartPhone.Color</th>
+                    <th>
+                        <div>
+                                <a class="btn btn-primary" asp-page="/Admin/SmartPhones/Edit" asp-route-id="@smartPhone.PhoneId">Изменить</a>
+                            <form  method="post" asp-page-handler="Delete" asp-route-phoneId="@smartPhone.PhoneId">
+                                    <button class ="btn btn-primary" type="submit">Удалить</button>
+                            </form>
+                        </div>
+                    </th>
+                </tr>
+            }
+        }
+        </tbody>
+
+    </table>
+</div>
